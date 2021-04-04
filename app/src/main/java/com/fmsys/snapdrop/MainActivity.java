@@ -180,7 +180,7 @@ public class MainActivity extends Activity {
         }
 
         pullToRefresh.setOnRefreshListener(() -> {
-            refreshWebsite();
+            refreshWebsite(true);
             pullToRefresh.setRefreshing(false);
         });
 
@@ -191,12 +191,33 @@ public class MainActivity extends Activity {
         new UpdateChecker().execute("");
     }
 
-    private void refreshWebsite() {
+    private void refreshWebsite(boolean pulled) {
         if (isInternetAvailable()) {
-            webView.loadUrl(baseURL);
+            isTranfering(pulled);
         } else {
             showScreenNoConnection();
         }
+    }
+    
+    private void refreshWebsite() {
+        refreshWebsite(false);
+    }
+    
+    private boolean forceRefresh = false;
+    
+    private void isTranfering(Boolean pulled) {
+        webview.evaluateJavascript("(function() { return document.querySelectorAll('x-peer[transfer]').length > 0; })();", new ValueCallback<Boolean>() {
+            @Override
+            public void onReceiveValue(Boolean t) {
+                if (!t || forceRefresh) {
+                    //currently no transfer
+                    webView.loadUrl(baseURL);
+                    forceRefresh = false;
+                } else if (pulled) {
+                    forceRefresh = true;
+                }
+            }
+        });
     }
 
     private void showScreenNoConnection() {
