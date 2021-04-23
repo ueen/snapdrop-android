@@ -1,6 +1,11 @@
 let langCode = window.navigator.language.substring(0, 2); //because sometimes may be en-US 
 const lang = new Languages(langCode);
 
+document.querySelector('#a[href="#about"]').setAttribute('title', lang.about);
+document.querySelector('#theme').setAttribute('title', lang.theme);
+document.querySelector('#notification').setAttribute('title', lang.notification);
+document.querySelector('#install').setAttribute('install', lang.install);
+
 class Languages {
     constructor(code) {
         this.init()
