@@ -410,6 +410,7 @@ public class MainActivity extends Activity {
                     //website initialisation
                     if (!currentlyOffline) {
                         webView.loadUrl(JavaScriptInterface.initialiseWebsite());
+                        webView.loadUrl("file:///android_asset/localization.js");
                         webView.loadUrl(JavaScriptInterface.getSendTextDialogWithPreInsertedString(getTextFromUploadIntent()));
 
                         // welcome dialog
