@@ -5,6 +5,7 @@ document.querySelector('#a[href="#about"]').setAttribute('title', lang.about);
 document.querySelector('#theme').setAttribute('title', lang.theme);
 document.querySelector('#notification').setAttribute('title', lang.notification);
 document.querySelector('#install').setAttribute('install', lang.install);
+document.querySelector('x-no-peers h2').innerText = lang.open;
 
 class Languages {
     constructor(code) {
